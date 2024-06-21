@@ -26,7 +26,7 @@ type PassangerFormProps = {
   index: number;
   handleChange: (
     index: number,
-    e: ChangeEvent<HTMLInputElement | { name?: string; value: unknown } | HTMLSelectElement | any>
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | { name?: string; value: unknown } | string>
   ) => void;
 };
 
@@ -102,7 +102,6 @@ const PassangerForm: React.FC<PassangerFormProps> = ({
                 handleChange(index, newValue);
               }
             }}
-            renderInput={(params: any) => <TextField {...params} />}
           />
         </Grid>
         <Grid item xs={12}>
