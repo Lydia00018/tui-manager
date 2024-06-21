@@ -1,15 +1,10 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent } from "react";
 import Card from "@mui/material/Card";
 import {
-  Button,
   FormControl,
-  FormControlLabel,
-  FormLabel,
   Grid,
   InputLabel,
   MenuItem,
-  Radio,
-  RadioGroup,
   Select,
   SelectChangeEvent,
   TextField,
@@ -26,7 +21,8 @@ type PassangerFormProps = {
   index: number;
   handleChange: (
     index: number,
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | { name?: string; value: unknown } | string>
+    e: ChangeEvent<HTMLInputElement | { name?: string; value: unknown } | string> | SelectChangeEvent<string>
+
   ) => void;
 };
 
@@ -36,11 +32,11 @@ const PassangerForm: React.FC<PassangerFormProps> = ({
   handleChange,
 }) => {
   return (
-    <Card>
-      <Grid container spacing={2}>
+    <>
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         <Grid item xs={12}>
           <Typography variant="h6" gutterBottom>
-            Passenger Details
+           {`Passenger ${index + 1}`}
           </Typography>
         </Grid>
         <Grid item xs={12} md={4}>
@@ -95,7 +91,7 @@ const PassangerForm: React.FC<PassangerFormProps> = ({
         <Grid item xs={12} md={4}>
           <DatePicker
             label="Date of Birth"
-            value={passenger.dateOfBirth}
+            value={new Date(passenger.dateOfBirth)}
             format="yyyy-MM-dd"
             onChange={(newValue: any) => {
               if (newValue !== null) {
@@ -104,22 +100,8 @@ const PassangerForm: React.FC<PassangerFormProps> = ({
             }}
           />
         </Grid>
-        <Grid item xs={12}>
-          <Grid container justifyContent="space-between">
-            <Grid item>
-              <Button variant="contained" color="primary">
-                BACK
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button variant="contained" color="secondary">
-                NEXT
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
       </Grid>
-    </Card>
+    </>
   );
 };
 

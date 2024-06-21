@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import Grid from "@mui/material/Grid";
+import { SelectChangeEvent, Button, Container } from "@mui/material";
 
 import PassengerForm from "../PassengerForm/PassengerForm";
 
@@ -16,21 +17,23 @@ type PassangerPanelProps = {
   data: Passengers;
 };
 
+type InputChangeEvent = ChangeEvent<HTMLInputElement | { name?: string; value: string }>;
+
 const PassengerPanel: React.FC<PassangerPanelProps> = ({ data }) => {
   const [expanded, setExpanded] = React.useState<boolean>(false);
   const [formData, setFormData] = useState<Passengers>(data);
 
   const handleChange = (
     index: number,
-    e: ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | { name?: string; value: unknown } | string
-    >
+    e: ChangeEvent<HTMLInputElement | { name?: string; value: unknown } | string> | SelectChangeEvent<string>
   ) => {
-    const { name, value } = e.target as HTMLInputElement;
-    setFormData({
-      ...formData,
-      [index]: { ...formData[index], [name]: value },
-    });
+    if (e?.target) {
+      const { name, value } = e.target as HTMLInputElement;
+      setFormData({
+        ...formData,
+        [index]: { ...formData[index], [name]: value },
+      });
+    }
   };
   return (
     <>
@@ -50,11 +53,12 @@ const PassengerPanel: React.FC<PassangerPanelProps> = ({ data }) => {
             <div className="circle_icon">
               <SupervisorAccountIcon />
             </div>
-            <Typography>Passanger Details</Typography>
+            <Typography>Passengers Details</Typography>
             <PassengerStats data={data} />
           </Grid>
         </AccordionSummary>
         <AccordionDetails>
+          <Container>
           <Grid
             container
             direction="column"
@@ -70,12 +74,21 @@ const PassengerPanel: React.FC<PassangerPanelProps> = ({ data }) => {
               />
             ))}
           </Grid>
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-between"
-            alignItems="baseline"
-          ></Grid>
+          <Container className="detailts_footer">
+          <Grid container justifyContent="space-between">
+            <Grid item>
+              <Button variant="contained" color="primary">
+                BACK
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button variant="contained" color="secondary">
+                NEXT
+              </Button>
+            </Grid>
+          </Grid>
+        </Container>
+        </Container>
         </AccordionDetails>
       </Accordion>
     </>
