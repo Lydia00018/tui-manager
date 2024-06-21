@@ -23,7 +23,7 @@ const PassengerPanel: React.FC<PassangerPanelProps> = ({ data }) => {
   const handleChange = (
     index: number,
     e: ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | { name?: string; value: unknown }
+      HTMLInputElement | HTMLSelectElement | { name?: string; value: unknown } | string
     >
   ) => {
     const { name, value } = e.target as HTMLInputElement;

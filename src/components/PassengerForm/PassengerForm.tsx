@@ -26,7 +26,7 @@ type PassangerFormProps = {
   index: number;
   handleChange: (
     index: number,
-    e: ChangeEvent<HTMLInputElement | { name?: string; value: unknown } | HTMLSelectElement | string>
+    e: ChangeEvent<HTMLInputElement | { name?: string; value: unknown } | HTMLSelectElement | any>
   ) => void;
 };
 
